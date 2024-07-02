@@ -1,0 +1,42 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        int peopleCount = 5; // Количество людей в очереди
+        Queue<(string, int)> peopleQueue = new Queue<(string, int)>();
+
+        // Заполнение очереди людей
+        for (int i = 1; i <= peopleCount; i++)
+        {
+            peopleQueue.Enqueue(("Person", i));
+        }
+
+        while (peopleQueue.Count > 0)
+        {
+            Console.WriteLine($"Next person: {peopleQueue.Peek().Item1}");
+            peopleQueue.Dequeue();
+            Console.WriteLine("Press Enter to process the next person...");
+
+            ConsoleKeyInfo keyInfo = Console.ReadKey();
+            if (keyInfo.Key == ConsoleKey.Enter)
+            {
+                Console.WriteLine("Processing...");
+
+                int servedCount = peopleQueue.Count;
+                int remainingCount = peopleCount - servedCount;
+                Console.WriteLine($"Served: {servedCount}, Remaining: {remainingCount}");
+            }
+            else
+            {
+                Console.WriteLine("Please press Enter to continue.");
+                Console.ReadLine();
+            }
+        }
+
+        Console.WriteLine("All people have been processed.");
+    }
+}
